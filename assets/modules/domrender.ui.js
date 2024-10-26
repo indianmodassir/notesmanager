@@ -1,4 +1,4 @@
-(function($, window, document) {
+(function($, _window, document) {
 	$.fn.render=function(tag, sources, text, attr, seed) {
 		var elem, attr, rAriaAttr=/^aria(.*)$/, xlink = "http://www.w3.org/1999/xlink", rElemNS = /(?:svg|line|circle|polyline|polygon|rect|use|path|g)/, xmlsrc = "http://www.w3.org/2000/svg";
 
