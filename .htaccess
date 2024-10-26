@@ -1,0 +1,72 @@
+RewriteEngine On
+
+# -----------------------------------------------------
+# SET Default Directory [Index]
+# -----------------------------------------------------
+DirectoryIndex index.php
+
+# -----------------------------------------------------
+# Env [Environment variable] setup for .htaccess
+# -----------------------------------------------------
+SetEnv AUTHOR "Expert Modassir"
+SetEnv VERSION "14.10.23"
+SetEnv APP_NAME "Notes Manager"
+SetEnv TIME_STAMP "14-10-2023 at 12:36 (UTC+12:40)"
+
+# -----------------------------------------------------
+# Domain [SETUP] format https://notesmanager.com
+# -----------------------------------------------------
+RewriteEngine On
+RewriteCond %{REQUEST_SCHEME} (.*)
+RewriteRule ^ - [E=PROTOCOL:%1]
+
+RewriteEngine On
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTPS} off
+RewriteRule ^ - [E=PROTOCOL:%{HTTP_HOST}]
+
+RewriteEngine On
+RewriteRule ^ - [E=DOMAIN:%{ENV:PROTOCOL}://%{HTTP_HOST}]
+
+# -----------------------------------------------------
+# Remove [PHP] File extension Like .php
+# -----------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+
+# -----------------------------------------------------
+# Remove [JS] File extension Like .js
+# -----------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.js -f
+RewriteRule ^(.*)$ $1.js
+
+# -----------------------------------------------------
+# Prevent includable Files from Direct Access
+# Prevent Access Private [Secure] Files
+# -----------------------------------------------------
+<FilesMatch "^\.env|(?:autoload)">
+  Deny from all
+</FilesMatch>
+
+# EnvServicesProviders
+
+# -----------------------------------------------------
+# Protect/Prevent Directory Index
+# -----------------------------------------------------
+Options -Indexes
+
+# -----------------------------------------------------
+# Error Handling for 404, 403 500 Error code
+# And redirect on error page with error code
+# -----------------------------------------------------
+ErrorDocument 404 /error/?errorcode=404
+ErrorDocument 403 /error/?errorcode=403
+ErrorDocument 500 /error/?errorcode=500
+
+# -----------------------------------------------------
+
+# -----------------------------------------------------
+
+# -----------------------------------------------------
