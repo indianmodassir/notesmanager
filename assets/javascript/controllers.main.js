@@ -2509,6 +2509,8 @@ request.addEventListener("success", function() {
 
   $(".note-sash-loader").addClass("active");
 
+  $(".preloader").remove();
+
   /*
     * Database [indexedDB] Handling
   --------------------------------------------------------------------------------*/
